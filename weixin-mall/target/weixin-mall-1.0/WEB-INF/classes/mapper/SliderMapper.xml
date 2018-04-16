@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mall.dao.SliderDao">
+
+    <resultMap id="sliderMap" type="com.mall.bean.Slider">
+        <id property="sid" column="s_id"/>
+        <result property="stitle" column="s_title"/>
+        <result property="spicurl" column="s_picurl"/>
+    </resultMap>
+
+    <!-- 遍历轮播表 -->
+    <select id="listSliders" resultMap="sliderMap">
+      SELECT * FROM slider
+    </select>
+
+    <!-- 获取表中总共有多少条数据 -->
+    <select id="count" resultType="java.lang.Long">
+      SELECT COUNT(*) FROM slider
+    </select>
+
+    <!-- 根据id查询对象 -->
+    <select id="getById" resultMap="sliderMap" parameterType="java.lang.Long">
+      SELECT * FROM slider WHERE s_id=#{sid}
+    </select>
+
+    <!-- 修改对象信息 -->
+    <update id="update">
+        update slider
+        <trim prefix="set" suffixOverrides=",">
+            <if test="stitle!=null">s_title=#{stitle},</if>
+            <if test="spicurl!=null">s_picurl=#{spicurl},</if>
+        </trim>
+        <where>
+            s_id=#{sid}
+        </where>
+    </update>
+
+</mapper>

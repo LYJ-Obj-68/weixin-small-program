@@ -1,0 +1,63 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mall.dao.DetailsDao">
+    <resultMap id="detailsMap" type="com.mall.bean.Details">
+        <id property="did" column="d_id"/>
+        <result property="dtitle" column="d_title"/>
+        <result property="ddecripte" column="d_decripte"/>
+        <result property="dpicurl" column="d_picurl"/>
+        <result property="doldprice" column="d_oldprice"/>
+        <result property="dnewprice" column="d_newprice"/>
+        <result property="vid" column="v_id"/>
+    </resultMap>
+
+    <!-- 遍历分类表 -->
+    <select id="listAll" resultMap="detailsMap">
+        SELECT * FROM details
+    </select>
+
+    <!-- 获取表中总共有多少条数据 -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM details
+    </select>
+
+    <!-- 根据分类表id获取list -->
+    <select id="listByVid" resultMap="detailsMap">
+        SELECT * FROM details WHERE v_id=#{vid}
+    </select>
+
+    <!-- 根据id查询对象 -->
+    <select id="getById" resultMap="detailsMap" parameterType="java.lang.Long">
+        SELECT * FROM details WHERE d_id=#{did}
+    </select>
+
+    <!-- 新增 -->
+    <insert id="save">
+        <![CDATA[
+          INSERT INTO details (dtitle,ddecripte,dpicurl,doldprice,dnewprice,vid) VALUES (#{dtitle},#{ddecripte},#{dpicurl},#{doldprice},#{dnewprice},#{vid})
+        ]]>
+    </insert>
+
+    <!-- 根据id删除数据 -->
+    <delete id="removeById" parameterType="java.lang.Long">
+        <![CDATA[
+          DELETE FROM details WHERE d_id=#{did}
+        ]]>
+    </delete>
+
+    <update id="update">
+        update details
+        <trim prefix="set" suffixOverrides=",">
+            <if test="dtitle!=null">d_title=#{dtitle},</if>
+            <if test="ddecripte!=null">d_decripte=#{ddecripte},</if>
+            <if test="dpicurl!=null">d_picurl=#{dpicurl},</if>
+            <if test="doldprice!=null">d_oldprice=#{doldprice},</if>
+            <if test="dnewprice!=null">d_newprice=#{dnewprice},</if>
+            <if test="vid!=null">v_id=#{vid},</if>
+        </trim>
+        <where>
+            d_id=#{did}
+        </where>
+    </update>
+</mapper>

@@ -1,0 +1,21 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20rpx 10rpx;
+  box-sizing: border-box;
+}
+
+button {
+  height: 100rpx;  
+  background-color: #ffcccc;  /*button背景色*/
+  font-size: 30rpx; /*字体大小*/
+  border: 2rpx solid #EB602E;  /*边框设置*/
+  border-radius: 50rpx;  /*设置四个角的圆滑度*/
+  padding: 0px;
+  width: 100%;
+  line-height: 30rpx;  /*行间距*/
+  display: table;  /*布局格式*/
+}

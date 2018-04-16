@@ -1,0 +1,24 @@
+<!-- details.wxml -->
+<!-- 引用过滤器(保留价格小数) -->
+<wxs module="filters" src="../../decimal/decimal.wxs"></wxs>
+<view class='container'>
+  <view class='shopping_container'>
+    <!-- 商品基本信息 -->
+    <image src='{{details.dpicurl}}'/>
+    <view class="title">{{details.dtitle}}</view>
+    <view class='price'>
+      <!-- 调用过滤器中的自定义函数,需两个参数(价格，需保留几位数) -->
+      <text class="newprice">￥{{filters.toFix(details.dnewprice,2)}}</text>
+      <text class="oldprice">￥{{filters.toFix(details.doldprice,2)}}</text>
+    </view>
+    <view class="reason">{{details.ddecripte}}</view>
+    <!-- 加入购物车与立即支付 -->
+    <view class='addCart_pay'>
+      <view class="bottom_line"></view>
+      <view class="row">
+        <button class='addCart' data-did='{{details.did}}' bindtap="addCarts">加入购物车</button>
+        <button class='pay'>立即购买</button>
+      </view>
+    </view>
+  </view>
+</view>

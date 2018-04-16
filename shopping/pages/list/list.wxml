@@ -1,0 +1,23 @@
+<!-- list.wxml -->
+<!-- 引用过滤器(保留价格小数) -->
+<wxs module="filters" src="../../decimal/decimal.wxs"></wxs>
+<view class="containers">
+  <!-- 遍历后台传递过来的所有情况 -->
+  <block wx:for="{{detailList}}" wx:key="{{item.did}}">
+    <navigator url="../details/details?did={{item.did}}">
+      <view class="brand_item">
+        <image src="{{item.dpicurl}}" class="pic"></image>
+        <view class="right_cont">
+          <text class="name">{{item.dtitle}}</text>
+          <text class="decripte">{{item.ddecripte}}</text>
+          <view class="price">
+            <!-- 调用过滤器中的自定义函数,需两个参数(价格，需保留几位数) -->
+            <text class="oldprice">￥{{filters.toFix(item.doldprice,2)}}</text>
+            <text class="discount"></text>
+            <text class="newprice">￥{{filters.toFix(item.dnewprice,2)}}</text>
+          </view>
+        </view>     
+      </view>
+    </navigator>
+  </block>
+</view>

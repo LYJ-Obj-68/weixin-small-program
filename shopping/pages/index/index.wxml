@@ -1,0 +1,41 @@
+<!-- index.wxml -->
+<view class='containers'>
+  <!-- 轮播图 -->
+  <view>
+    <swiper class='swiper_box' indicator-dots='{{indicatorDots}}' vertical='{{vertical}}' autoplay='{{autoplay}}' interval='{{interval}}' duration='{{duration}}' bindchange='swiperchange'> 
+      <block wx:for="{{images}}" wx:key="{{item.sid}}">
+        <swiper-item>
+          <image src='{{item.spicurl}}' class='slide-image'></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  
+  <!-- 列表主标题 -->
+  <view class='text'>
+    <view class='line_flag'></view>
+    <text>主题馆</text>
+  </view>
+
+  <!-- 列表中的每个类别 -->
+  <view class='venues_box'>
+    <view class='venues_list'>
+      <block wx:for='{{venuesList}}' wx:key="{{item.sid}}">
+        <view class='venues_item'>
+          <navigator url='../list/list?vid={{item.vid}}'>
+            <image src='{{item.vpicurl}}'></image>
+            <text class='title'>{{item.vtitle}}</text>
+            <view>
+              <text class='decripte'>{{item.vdecripte}}</text>
+            </view>
+          </navigator>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 加载提示 -->
+  <loading hidden="{{loadingHidden}}">
+    加载中...
+  </loading>
+</view>

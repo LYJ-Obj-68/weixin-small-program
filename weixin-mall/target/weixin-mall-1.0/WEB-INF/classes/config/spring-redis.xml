@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 加载配置属性文件 -->
+    <context:property-placeholder location="classpath:/config/redis.properties"/>
+
+    <!--redis连接池配置-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--最大连接数-->
+        <property name="maxTotal" value="${redis.maxTotal}" />
+        <!--最大空闲连接数-->
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <!--最小空闲连接数-->
+        <property name="minIdle" value="${redis.minIdle}" />
+        <!--获取连接时的最大等待毫秒数，小于零：阻塞不确定的时间，默认-1-->
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}" />
+        <!-- 连接最小空闲时间 -->
+        <property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}" />
+        <!-- 每次释放的连接最大数目 -->
+        <property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}" />
+        <!-- 释放连接的扫描间隔(毫秒) -->
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}" />
+        <!-- 在获取连接时检查有效性,默认false -->
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+        <!--  -->
+        <property name="testOnReturn" value="${redis.testOnReturn}" />
+        <!-- 在空闲时检查有效性,默认false -->
+        <property name="testWhileIdle" value="${redis.testWhileIdle}" />
+    </bean>
+
+    <bean id="jedisConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          destroy-method="destroy"
+          p:host-name="${redis.host}"
+          p:port="${redis.port}"
+          p:usePool="${redis.usePool}"
+          p:timeout="${redis.timeout}"
+          p:pool-config-ref="jedisPoolConfig">
+    </bean>
+
+    <!-- 处理缓存数据的模板类 -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+          p:connection-factory-ref="jedisConnectionFactory">
+        <!-- string类型 配置key的序列化方法 -->
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <!-- string类型的Value的序列化方法 -->
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+        </property>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+        </property>
+    </bean>
+
+    <!-- 专门处理字符串的模板类，自己默认的序列化方法 -->
+    <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+          p:connection-factory-ref="jedisConnectionFactory" />
+
+</beans>

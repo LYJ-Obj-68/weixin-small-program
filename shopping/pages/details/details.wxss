@@ -1,0 +1,69 @@
+/*设置商品详情基本样式*/
+.shopping_container{
+    padding: 0 30rpx;
+}
+.shopping_container .title{
+    margin: 20rpx 0;
+    font-weight: bold;
+    color: #333;
+}
+.shopping_container .reason{
+    margin: 20rpx 0;
+    color: #939393;
+    line-height: 22px;
+}
+.price {
+  margin: 20rpx 0;
+  line-height: 22px;
+}
+.newprice{
+    color: #f16236;
+    font-weight: bold;
+}
+.oldprice{
+    margin-left: 20px;
+    text-decoration: line-through;
+    color: #939393;
+}
+/*设置按钮样式与布局*/
+.addCart_pay {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  height: 120rpx;
+  line-height: 120rpx;
+  background: white;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.addCart {
+  position: fixed;
+  left: 0;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 30rpx;
+  border-radius: 0rpx;
+  width: 30%;
+  height: 120rpx;
+  line-height: 120rpx;
+  background-color: #f44336; /* 红色 */
+}
+.pay {
+  position: fixed;
+  right: 0;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 30rpx;
+  border-radius: 0rpx;
+  width: 30%;
+  height: 120rpx;
+  line-height: 120rpx;
+  background-color: #f44336; /* 红色 */
+}

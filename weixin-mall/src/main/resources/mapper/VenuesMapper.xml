@@ -1,0 +1,63 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mall.dao.VenuesDao">
+    <resultMap id="venuesMap" type="com.mall.bean.Venues">
+        <id property="vid" column="v_id"/>
+        <result property="vtitle" column="v_title"/>
+        <result property="vdecripte" column="v_decripte"/>
+        <result property="vpicurl" column="v_picurl"/>
+
+        <collection property="detailses" ofType="com.mall.bean.Details">
+            <id property="did" column="d_id"/>
+            <result property="dtitle" column="d_title"/>
+            <result property="ddecripte" column="d_decripte"/>
+            <result property="dpicurl" column="d_picurl"/>
+            <result property="doldprice" column="d_oldprice"/>
+            <result property="dnewprice" column="d_newprice"/>
+        </collection>
+    </resultMap>
+
+    <!-- 遍历分类表 -->
+    <select id="listAll" resultMap="venuesMap">
+        SELECT * FROM venues
+    </select>
+
+    <!-- 获取表中总共有多少条数据 -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM venues
+    </select>
+
+    <!-- 根据id查询对象 -->
+    <select id="getById" resultMap="venuesMap" parameterType="java.lang.Long">
+        SELECT * FROM venues WHERE v_id=#{vid}
+    </select>
+
+    <!-- 新增 -->
+    <insert id="save">
+        <![CDATA[
+          INSERT INTO venues (vtitle,vdecripte,vpicurl) VALUES (#{vtitle},#{vdecripte},#{vpicurl})
+        ]]>
+    </insert>
+
+    <!-- 根据id删除数据 -->
+    <delete id="removeById" parameterType="java.lang.Long">
+        <![CDATA[
+          DELETE FROM venues WHERE v_id=#{vid}
+        ]]>
+    </delete>
+
+    <!-- 修改对象信息 -->
+    <update id="update">
+        update venues
+        <trim prefix="set" suffixOverrides=",">
+            <if test="vtitle!=null">v_title=#{vtitle},</if>
+            <if test="vdecripte!=null">v_decripte=#{vdecripte},</if>
+            <if test="vpicurl!=null">v_picurl=#{vpicurl},</if>
+        </trim>
+        <where>
+            v_id=#{vid}
+        </where>
+    </update>
+
+</mapper>

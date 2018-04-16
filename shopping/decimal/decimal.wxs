@@ -1,0 +1,13 @@
+/*
+  wxs过滤器
+  注意:这里获取到的value是String类型，需要转换成 number;直接用强制转换可能不行,可以用praseFloat()  
+*/
+var filters = {
+  toFix: function (value,count) {
+    var price = parseFloat(value);
+    return price.toFixed(count);
+  }
+}
+module.exports = {
+  toFix: filters.toFix
+}

@@ -1,0 +1,44 @@
+<!--index.wxml-->
+<view class="container">
+  <view>
+    <button type='primary' size='mini' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 登录 </button>
+    
+    <block wx:else>
+      <view class="userinfo">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        <view class="userinfo-nickname">{{userInfo.nickName}}</view>
+        <view wx:if="{{userInfo.gender == 1}}">男</view>
+        <view wx:elif="{{userInfo.gender == 2}}">女</view>
+        <view wx:else>未知</view>
+        <view>{{userInfo.city}}</view>
+      </view>
+
+      <view class="list">
+        <view>
+          <image src='../../image/form.png' mode='scaleToFill'></image>
+          <text>我的订单</text>
+        </view>
+        <view>
+          <image src='../../image/map.png' mode='scaleToFill'></image>
+          <text>收货地址</text>
+        </view>
+        <view>
+          <image src='../../image/remind.png' mode='scaleToFill'></image>
+          <text>系统通知</text>
+        </view>
+        <view>
+          <image src='../../image/map.png' mode='scaleToFill'></image>
+          <text>会员卡</text>
+        </view>
+        <view>
+          <image src='../../image/trade-assurance.png' mode='scaleToFill'></image>
+          <text>优惠券</text>
+        </view>
+        <view>
+          <image src='../../image/supplier-features.png' mode='scaleToFill'></image>
+          <text>我的拼团</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

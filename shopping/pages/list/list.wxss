@@ -1,0 +1,52 @@
+.containers .brand_item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.containers .brand_item .pic {
+  display: block;
+  width: 100px;
+  height: 100px;
+}
+
+.right_cont {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.right_cont .decripte{
+  display: block;
+  color: #939393;
+}
+
+.right_cont .name{
+    margin: 10px 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    color: #333;
+}
+.right_cont .newprice{
+    color: #f16236;
+    font-weight: bold;
+}
+
+.right_cont .discount{
+    height: 16px;
+    line-height: 16px;
+    margin: 0 10px;
+    padding: 1px 6px 1px 10px;
+    background-size: cover;
+    color: #fff;
+    font-size: 12px;
+}
+.right_cont .oldprice{
+    text-decoration: line-through;
+    color: #939393;
+}

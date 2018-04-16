@@ -1,0 +1,63 @@
+<!-- cart.wxml -->
+<!-- 引用过滤器(保留价格小数) -->
+<wxs module="filters" src="../../decimal/decimal.wxs"></wxs>
+<view class="list">
+  <!-- 判断购物车中是否有数据 -->
+	<view wx:if="{{cart.length > 0}}">
+    <!-- 当购物车中有很多数据时，可以滚动 -->
+    <scroll-view class="scroll" scroll-y="true">
+      <!-- wx:for 渲染购物车列表 -->
+      <block wx:for="{{cart}}" wx:key="{{item.product.id}}">
+        <view class="cart_container">
+          <!-- wx:if是否显示不同图标 -->
+          <icon class='item-select' wx:if="{{item.isSelect}}" type="success" color="red" bindtap="selectList" data-index="{{index}}" />
+          <icon class='item-select' wx:else type="circle" bindtap="selectList" data-index="{{index}}"/>
+          <!-- 点击商品图片可跳转到商品详情页 -->
+          <navigator url="../details/details?did={{item.did}}">
+            <image class="item-image" src="{{item.product.dpicurl}}"></image>
+          </navigator>
+          
+          <view class="column">
+            <view class='row'>
+              <text class="title">{{item.product.dtitle}}</text>
+              <!-- 删除商品信息 -->
+              <icon class='dele-icon' data-index="{{index}}" type="cancel" bindtap="removeProduct"/>
+            </view>
+            <view class='row'>
+              <text class="sign-price">
+                ￥<text class="sku-price">{{filters.toFix(item.product.dnewprice,2)}}</text>
+              </text>  
+              <view class="row">
+                <!-- 增加减少按钮 -->
+                <button class='minus-button' bindtap="minusCount" data-index="{{index}}">-</button>
+                <button class='count-button'>{{item.count}}</button>
+                <button class='add-button' bindtap="addCount" data-index="{{index}}">+</button>  
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>   
+    </scroll-view>
+    <!-- 底部操作栏 -->
+    <view class="bottom_total">
+      <view class="bottom_line"></view>
+      <view class="row">
+        <!-- wx:if 是否全选显示不同图标 -->
+        <icon class='all-select' wx:if="{{selectAllStatus}}" type="success" color="red" bindtap="selectAll"/>
+        <icon class='all-select' wx:else type="circle" bindtap="selectAll"/>
+        <text class="small_text">全选</text>
+        <!-- 总价 -->
+        <text>合计:￥ </text>
+        <text class="price">{{totalPay}}</text>
+        <!-- 提交订单 -->
+        <button class="pay-button" bindtap="toBuy" formType="submit">去结算</button>
+      </view>
+    </view>
+	</view>
+
+  <view wx:else class="empty_tip">
+    <image src="../../image/cart-null.png" mode="widthFix"></image>
+    <view>购物车竟然是空的</view>
+    <view>快去首页瞧瞧吧</view>
+  </view>
+</view>
